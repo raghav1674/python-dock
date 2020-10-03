@@ -1,0 +1,60 @@
+#!/bin/python3
+
+print("content-type: text/html")
+print()
+
+import subprocess as sp
+import cgi 
+import json
+import datetime
+
+query = cgi.FieldStorage()
+
+
+image_name = query.getvalue("image_name")
+
+
+result=""
+
+
+status,output = sp.getstatusoutput(f'sudo docker search {image_name} --no-trunc ')
+
+output = output.split("\n")
+
+
+for rows in output:
+	print("\n<pre><h4>" + str(rows) + "</h4></pre>\n")
+
+'''output = output.split("\n")
+print("<table border =1>")
+for tr in output:
+	output="<tr>"
+	for td in tr.split("     "):
+		output += "<td><h3>\n"+ td.strip() +"\n </td>"
+	output+="</tr>"
+	print(output)
+print("</table>")
+
+print()
+        
+if status == 0:
+    result =json.dumps({
+            "name" : str(image_name),
+            "search_results":  output,
+             },indent=4)
+else:
+    result =json.dumps({
+    "name" : str(image_name),
+    "status": "error",
+    "reason" : str(output)
+            },indent=4)
+
+print(result)'''
+
+    
+
+
+
+
+
+
